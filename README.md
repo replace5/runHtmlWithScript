@@ -5,7 +5,7 @@
 function success() {
     console.log('success');
 }
-function success() {
+function error() {
     console.log('error');
 }
 var html = '<div>abc</div><script>var a = 12;</script><script http://code.jquery.com/jquery-2.1.1.js></script>';
