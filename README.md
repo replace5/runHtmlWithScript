@@ -1,5 +1,5 @@
 # runhtml
-把带有script标签的字符串插入到dom，全部插入完成后（如果有引用外部js文件，会等到所有外部js文件记载完成）回调
+把带有script标签的字符串插入到dom，全部插入完成后（如果有引用外部js文件，会等到所有外部js文件加载完成）回调
 ####demo:
 ```javascript
 function success() {
