@@ -1,6 +1,6 @@
 # runhtml
-把带有script标签的字符串插入到dom，全部插入完成后回调
-demo:
+把带有script标签的字符串插入到dom，全部插入完成后回调  
+####demo:
 ```javascript
 function success() {
     console.log('success');
