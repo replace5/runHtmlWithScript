@@ -3,7 +3,7 @@
 	function noop(){}
 
 	function scriptLoad(script, load) {
-		if (!isFunction(load)) {
+		if (typeof load !== 'function') {
 			return;
 		}
 		if (script.addEventListener) {
@@ -30,13 +30,11 @@
 		return nodes;
 	}
 	function insertDom(target, nodes, success, fail) {
-		var that = this;
-		var outer = arguments.callee;
 		return function() {
 			try {
 				if (nodes.length > 0) {
 					var elm = nodes.shift();
-					var selfRun = outer(target, nodes, success, fail);
+					var selfRun = insertDom(target, nodes, success, fail);
 
 					if (elm.nodeName === 'SCRIPT' && elm.type === "text/shellyscript") {
 						var script = document.createElement('script');
@@ -54,7 +52,11 @@
 						}
 						target.insertBefore(script, null);
 					} else if (elm.innerHTML && elm.innerHTML.toLowerCase().indexOf("<script") > -1) {
-						outer(elm, that.stringToNode(elm.innerHTML), selfRun, fail);
+						for (var childs = []; elm.firstChild;) {
+							childs.push(elm.removeChild(elm.firstChild));
+						}
+						target.insertBefore(elm, null);
+						insertDom(elm, childs, selfRun, fail)();
 					} else {
 						target.insertBefore(elm, null);
 						selfRun();
